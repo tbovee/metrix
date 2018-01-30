@@ -24,7 +24,7 @@ metrix performs these jobs:
 			i) zearns.csv (the left, all records retained)
 			ii) w.csv :: A list of symbols having weekly options, updated as needed
 				to capture changes
-			iii) b.csv  :: A list of brokerage-recognizable symbols corresponding to 
+			iii) binary.csv  :: A list of brokerage-recognizable symbols corresponding to 
 				binary options on Nadex
 			iv) The combined table is reconstructed with flag fields marking symbols 
 				having weekly options and symbols used to analyze binary options.
