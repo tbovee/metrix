@@ -1,9 +1,38 @@
-DOCUMENTATION FOR PROJECT METrix
+DOCUMENTATION FOR PROJECT METRIX
 
-DTG 20180130.1206
+DTG 20180131.1255
 
-I. Purpose
+I. Purpose; 
 
+Metrix imports data from csv files downloaded from two sources: The analytical site Zacks.com and the ThinkOrSwim platform at my brokerage, TDAmeritrade.com, combines tables and eliminates unneeded columns, links the tables together use the stock symbols column as the key, analyzes the data according to my method of using metrics, and writes a report to disk as an csv file suitable for import into Google Sheets. Updated daily in the morning.
+
+II. Major structures:
+Metrix uses three major data sets as inpout and three objects based on a single class to hold and manipulate in imported data
+within the code.
+
+	A. Earnings, a calendar of earnings, typically spanning a week. Note that it has earnings times of day (am, pm, xm) but
+	not the earnings date, which comes from the data referenced in II.B below. The number records varies depending upon
+	whether an earnings season is in progress. Updated once a week.
+	
+		1. Source: Zacks' earnings calendar, consisting of five files saved manually to the disk and then combined using the 		cp command.
+		2. Import file: e.csv
+		3. Target object: earns.
+		
+	B. Zacks, a table of analytics, especially the Earnings Surprise Predictor and Zacks Rank. It contains the date of the
+	earnings announcement (in the form yyyymmdd) but not the time of day. Typically produces about 7,000 records.
+	
+		1. Source: Zacks Stock Screener, using a custom screen that limits results to symbols with a volume of 500 shares or 			greater. 
+		2. Import file: z.csv
+		3. Target object: zacks.
+		
+	C. Market, 
+		
+
+
+III. External dependacies: 
+
+
+	
 	A. Metrix performs these jobs:
 		1) imports a specific set of csv tables into pandas dataframes. The tables are
 		downloaded before metrix is invoked. The tables are z.csv and e.csv.
