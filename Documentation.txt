@@ -30,6 +30,11 @@ within the code.
 		1. Dependency: A ThinkOrSwim watchlist.
 		2. Import file: m.csv
 		3. Target object: Market.
+	
+	D. Weeklys, a list of symbols having weekly options, updated once every three months.
+		1. Dependency: The Chicago Board of Options Exchange (CBOE) site.
+		2. Import file. weeklys.csv
+		3. Target object: Weeklys.
 
 III. The flow:
 
@@ -47,7 +52,6 @@ III. The flow:
 	C. Combine the data from Earns and Zacks into an DataFrame that is a property of object Analytics.
 		1. Use an Inner Join (one that retains records that are common to both Data Frames) to combine
 		the tables, using the Symbols and Ticker columns as the key.
-		2. Eliminate unneeded columns. (Specific columns TBD.)
 		
 	D. Pause the program to await the creation of the external dependency from the ThinkOrSwim platform (see III.E.).
 	There are two methods:
@@ -60,10 +64,14 @@ III. The flow:
 			c. ...or use a next file to determine which it should be, i.e., the first time the program is run
 			it is with an implied parameter 1 and the second time, with an implied parameter 2.
 			d. TBD.
-	F. and more: Mark symbols having Weeklys options
+			
+	F. Mark symbols having Weeklys options
+		Use an Outer Join that preserves the Analytics records entirely.
 	
 III. Analyzes the combined data, restructuring the Earns... table, scoring the
 		metrics used for analysis and restructuring the Earns... table to accommodate
 		the analytical results, all in csv format. (Details to come.)
+	1. Eliminate unneeded columns from Analytics.
+	
 		
 IV. Program terminates, and operator uploads it to Google Sheet as input into the trading routine.
