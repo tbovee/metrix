@@ -6,7 +6,7 @@ I. Purpose;
 
 Metrix imports data from csv files downloaded from two sources: The analytical site Zacks.com and the ThinkOrSwim platform at my brokerage, TDAmeritrade.com, combines tables and eliminates unneeded columns, links the tables together use the stock symbols column as the key, analyzes the data according to my method of using metrics, and writes a report to disk as an csv file suitable for import into Google Sheets. Updated daily in the morning.
 
-II. Major structures:
+II. Major structures and external dependencies:
 Metrix uses three major data sets as inpout and three objects based on a single class to hold and manipulate in imported data
 within the code.
 
@@ -14,57 +14,56 @@ within the code.
 	not the earnings date, which comes from the data referenced in II.B below. The number records varies depending upon
 	whether an earnings season is in progress. Updated once a week.
 	
-		1. Source: Zacks' earnings calendar, consisting of five files saved manually to the disk and then combined using the 		cp command.
+		1. Dependency: Zacks' earnings calendar, consisting of five files saved manually to the disk and then combined using the 		cp command.
 		2. Import file: e.csv
 		3. Target object: earns.
 		
 	B. Zacks, a table of analytics, especially the Earnings Surprise Predictor and Zacks Rank. It contains the date of the
 	earnings announcement (in the form yyyymmdd) but not the time of day. Typically produces about 7,000 records.
 	
-		1. Source: Zacks Stock Screener, using a custom screen that limits results to symbols with a volume of 500 shares or 			greater. 
+		1. Dependency: Zacks Stock Screener, using a custom screen that limits results to symbols with a volume of 500 shares or greater. 
 		2. Import file: z.csv
 		3. Target object: zacks.
 		
-	C. Market, 
-		
-
-
-III. External dependacies: 
-
-
+	C. Market, a list of data ana analytics from the ThinkOrSwim (ToS) trading platofrm run by TDAmeritrade. In order to work properly, ToS reuires that I copy a list of symbols, paste them into a Watchlist on the platform, and then download the result. This will require a pause in the program.
 	
-	A. Metrix performs these jobs:
-		1) imports a specific set of csv tables into pandas dataframes. The tables are
-		downloaded before metrix is invoked. The tables are z.csv and e.csv.
-			a) First, an inner join
-				i) z.csv :: Daily analysis data from Zacks, updated daily in the morning
-				approximately 7,000 records
-				ii) e.csv :: Earnings schedule data from Zacks, updated once weekly 
-				Up to approximately 2,000 records
-			b) Result: earns01.csv
-		b) Second join, a left outer join:
-			i) zearns.csv (the left, all records retained)
-			ii) w.csv :: A list of symbols having weekly options, updated as needed
-				to capture changes
-			iii) binary.csv  :: A list of brokerage-recognizable symbols corresponding to 
-				binary options on Nadex
-			iv) The combined table is reconstructed with flag fields marking symbols 
-				having weekly options and symbols used to analyze binary options.
-			Result: earns_interim.csv
-		c) A manual stage to allow for download of the brokerage data.
-			i) metrix Writes the full list of symbols in zearns_interim to file syms.csv
-			ii) metrix pauses for manual creation of the market-data table m.csv
-			iii) metrix resumed when notified by the operator.		
-		c) Third join, a left outer join:
-			i) earns_interim.csv (the left, all records retained as an error check)			
-			ii) m.csv :: Current market information :: updated as needed, from 
-				brokerage ThinkOrSwim
-			Result: Earns mmdd-mmdd, where mmdd are the start and end dates of the
-				period covered, derived programmatically from the minimum and maximum
-				earnings announcements dates in the set. For example, the file for the
-				week of Jan. 29 through Feb. 2, 2018 would be styled "Earns 0129-0202".
-	2) Analyzes the combined data, restructuring the Earns... table, scoring the
+		1. Dependency: A ThinkOrSwim watchlist.
+		2. Import file: m.csv
+		3. Target object: Market.
+
+III. The flow:
+
+	A. Earns data creation and acquisiton
+		1. Save earnings daily earnings calendar information from Zacks to a dedicated folder called "cal" (for calendar) 
+		2. Copy the daily files into a single file named e.csv.
+		3. Acquire the single file for the Earns object, importing it from the disk into a pandas DataFrame
+	
+	B. Zacks data creation and acquision
+		1. Create current analytial data from Zacks through a query on the Stock Screenerusing a singe parameter:
+		AverageVolume >= 500.
+		2. Save the data to the files folder (root or another place, TBD) under the name z.csv.
+		3. Acuire the file for the Zacks object, importing it from the disk into a pandas DataFrame
+	
+	C. Combine the data from Earns and Zacks into an DataFrame that is a property of object Analytics.
+		1. Use an Inner Join (one that retains records that are common to both Data Frames) to combine
+		the tables, using the Symbols and Ticker columns as the key.
+		2. Eliminate unneeded columns. (Specific columns TBD.)
+		
+	D. Pause the program to await the creation of the external dependency from the ThinkOrSwim platform (see III.E.).
+	There are two methods:
+		1. Build a pause into the program that allows for a resumption after the dpendency is created 
+		in another window. Push a key or give a command to resume.
+		2. Exit the program with a message, and then give a command to resume it at the point where the Market object
+		data is acquired. This would require a commandline parameter, 
+			a. ...perhaps "metrix 1" and "metrix 2", 
+			b. ...or assume that absence of a parameter is 1 and only 2 need be made explit
+			c. ...or use a next file to determine which it should be, i.e., the first time the program is run
+			it is with an implied parameter 1 and the second time, with an implied parameter 2.
+			d. TBD.
+	F. and more: Mark symbols having Weeklys options
+	
+III. Analyzes the combined data, restructuring the Earns... table, scoring the
 		metrics used for analysis and restructuring the Earns... table to accommodate
 		the analytical results, all in csv format. (Details to come.)
-	3) Program terminates, and operator uploads it to Google Sheet as input into
-		the trading routine.
+		
+IV. Program terminates, and operator uploads it to Google Sheet as input into the trading routine.
