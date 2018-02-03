@@ -1,6 +1,9 @@
 DOCUMENTATION FOR PROJECT METRIX
 
-DTG 20180201.1742
+DTG 20180203.0645 Adds Market object 
+		and resolves ambiguity in handling of ThinkOrSwim data
+DTG 20180201.1742 First version
+
 
 I. Purpose; 
 
