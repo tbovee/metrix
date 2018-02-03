@@ -10,7 +10,7 @@ II. Major structures and external dependencies:
 Metrix uses three major data sets as inpout and three objects based on a single class to hold and manipulate in imported data
 within the code.
 
-	A. Earnings, a calendar of earnings, typically spanning a week. Note that it has earnings times of day (am, pm, xm) but
+	A. Earns, a calendar of earnings, typically spanning a week. Note that it has earnings times of day (am, pm, xm) but
 	not the earnings date, which comes from the data referenced in II.B below. The number records varies depending upon
 	whether an earnings season is in progress. Updated once a week.
 	
@@ -38,22 +38,18 @@ within the code.
 
 III. The flow:
 
-	A. Earns data creation and acquisiton
-		1. Save earnings daily earnings calendar information from Zacks to a dedicated folder called "cal" (for calendar) 
-		2. Copy the daily files into a single file named e.csv.
-		3. Acquire the single file for the Earns object, importing it from the disk into a pandas DataFrame
+	A. Earnings calendar data creation and acquisiton
+		1. Save daily earnings calendar information from Zacks to a dedicated folder called "cal" (for calendar) 
+		2. Copy the daily files into a single file named calendar.csv.
+		3. Acquire the single file for the Calendar object, importing it from the disk into a pandas DataFrame
 	
 	B. Zacks data creation and acquision
 		1. Create current analytial data from Zacks through a query on the Stock Screenerusing a singe parameter:
 		AverageVolume >= 500.
-		2. Save the data to the files folder (root or another place, TBD) under the name z.csv.
+		2. Save the data to the files folder (root or another place, TBD) under the name zacks.csv.
 		3. Acuire the file for the Zacks object, importing it from the disk into a pandas DataFrame
 	
-	C. Combine the data from Earns and Zacks into an DataFrame that is a property of object Analytics.
-		1. Use an Inner Join (one that retains records that are common to both Data Frames) to combine
-		the tables, using the Symbols and Ticker columns as the key.
-		
-	D. Pause the program to await the creation of the external dependency from the ThinkOrSwim platform (see III.E.).
+	C. Pause the program to await the creation of the external dependency from the ThinkOrSwim platform (see III.E.).
 	There are two methods:
 		1. Build a pause into the program that allows for a resumption after the dpendency is created 
 		in another window. Push a key or give a command to resume.
@@ -65,7 +61,16 @@ III. The flow:
 			it is with an implied parameter 1 and the second time, with an implied parameter 2.
 			d. TBD.
 			
-	F. Mark symbols having Weeklys options
+	D. Market daa creation and acquisition
+		1. Copy and paste the symbols listed in the Calendar DataFrame into a ThinkOrSwim watchlist.
+		2. Save the watchlist to a file called market.csv
+		3. Acquire the file for the Market object, importing form the disk into a panda DataFrame
+			
+	E. Combine the data from Earns, Zacks and Market into an DataFrame that is a property of object Analytics.
+		1. Use an Inner Join (one that retains records that are common to both Data Frames) to combine
+		the tables, using the Symbols and Ticker columns as the key.
+		
+	E. Mark symbols having Weeklys options
 		Use an Outer Join that preserves the Analytics records entirely.
 	
 III. Analyzes the combined data, restructuring the Earns... table, scoring the
