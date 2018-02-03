@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 
 # Version 0.0
+
+# DTG 20180203.0700 Added TableMarket object
 # DTG 20180202.1225 Added the data file class and defined the input file objects
   for the 1st run; next step is to define the output file objects.Q: How do I override
   a method defined in the class?
@@ -19,21 +21,28 @@ fsep = "/"
 datapath = "." + fsep + "data" + fsep
 
 # Earns object contants
-earnsfile = "e.csv"
+calendarfile = "calendar.csv"
 earnscolfixes = []
 
 # Zacks object constants
-zacksfile = "z.csv"
+zacksfile = "zacks.csv"
 zackscolfixes = []
+
+# Market object constants
+marketfile = "market.csv"
+marketcolfixes = []
 
 # Weeklys object constants
 weeklysfile  = "weeklys.csv"
 weeklyscolfixes = []
 
-# Syms object constants
+# Syms object constants :: IS THIS REALLY NEEDED??
  symsfile = "syms.csv"
  symscolfixes = []
  
+def pausehere()
+  # Code that pauses while Market externality is created.
+
 class DataBox(datafile, colfixes):
   # Holds DataFrame and associated attributes and tools.
    
@@ -54,17 +63,14 @@ class DataBox(datafile, colfixes):
   	else:
     	self.Datatable.columns = self.Colfixes
     
-TableEarns = DataBox(earnsfile,earnscolfixes)
-TableZacks = DataBox(zacksfile,zackscolfixes)
-TableWeeklys = Databox(weeklysfile,[])
-Tablesyms = Databox(symsfile,[])
+def main():
 
-
-
-
-
-def main() :
-  print "In main()"
+  TableEarns = DataBox(earnsfile,earnscolfixes)
+  TableZacks = DataBox(zacksfile,zackscolfixes)
+  pausehere()
+  TableMarket = DataBox(marketfile,[])
+  TableWeeklys = Databox(weeklysfile,[])
+  TableSyms = Databox(symsfile,[])
 	
 
 # CALL MAIN
