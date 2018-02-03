@@ -1,5 +1,6 @@
 DOCUMENTATION FOR PROJECT METRIX
 
+DTG 20180203.0707 Added tentative analysis scoring method.
 DTG 20180203.0645 Adds Market object 
 		and resolves ambiguity in handling of ThinkOrSwim data
 DTG 20180201.1742 First version
@@ -80,6 +81,15 @@ III. Analyzes the combined data, restructuring the Earns... table, scoring the
 		metrics used for analysis and restructuring the Earns... table to accommodate
 		the analytical results, all in csv format. (Details to come.)
 	1. Eliminate unneeded columns from Analytics.
+	2 	Tentative analytics method:
+		a. Use either all symbols on the earnings calendar OR all symbols in TableZacks
+			as a population.
+		b. Calculate the percentile and inverse percentile of each metric for each symbol
+			under consideration.
+		c. In scoring, use the percentile metric when more is better and the inverse
+			percentile metric when less is better.
+		d. Either add the percentiles together or take an average to produce an overall 
+			score.
 	
 		
 IV. Program terminates, and operator uploads it to Google Sheet as input into the trading routine.
