@@ -18,7 +18,8 @@ within the code.
 	not the earnings date, which comes from the data referenced in II.B below. The number records varies depending upon
 	whether an earnings season is in progress. Updated once a week.
 	
-		1. Dependency: Zacks' earnings calendar, consisting of five files saved manually to the disk and then combined using the 		cp command.
+		1. Dependency: Zacks' earnings calendar, consisting of six files saved manually 
+			to the disk and then combined using the module calfile.py
 		2. Import file: e.csv
 		3. Target object: earns.
 		
