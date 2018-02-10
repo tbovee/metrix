@@ -2,6 +2,7 @@
 
 # Version 0.0
 
+# DTG 20180209.1852 Completed Joindata() in Analuyzebox
 # DTG 20180203.1605 Completed field lists except for Analyze object
 # DTG 20180203.1215 
 #	Removed Syms object as not needed.
@@ -15,8 +16,6 @@
 
 # Import modules
 import sys
-
-# Optional modules
 import pandas as pd
 import numpy as np
 
@@ -86,14 +85,12 @@ class AnalyzeBox()
   #   and analyze-shr and pass-shr for shares, all of which are long plays.
   
   def ___init___:
-    pass
+    self.Joindata()
     
   def Joindata():
-    pass
-    
-  def Annotations():
-    pass
-    
+    self.Interimtable = df.merge(Calendar.Datatable, Zacks.Datatable, how='inner', on='syms')
+    self.Datatable = df.merge(self.Inerimtable, Weeklys.Datatable, how='outer', on='syms')
+        
   def Insertcols(): # if needed for new columns; do in join if possible
     pass
     
@@ -123,11 +120,11 @@ class AnalyzeBox()
          
 def main():
 
-  TableEarns = DataBox(earnsfile,earnscolfixes,earnscoldeletes)
-  TableZacks = DataBox(zacksfile,zackscolfixes,zackscoldeletes)
+  Calendar = DataBox(earnsfile,earnscolfixes,earnscoldeletes)
+  Zacks = DataBox(zacksfile,zackscolfixes,zackscoldeletes)
   pausehere()
-  TableMarket = DataBox(marketfile,[1,"syms"],marketcoldeletes)
-  TableWeeklys = Databox(weeklysfile,[],[])
+  Market = DataBox(marketfile,[1,"syms"],marketcoldeletes)
+  Weeklys = Databox(weeklysfile,[],[])
   Analyze = AnalyzeBox()
 
 # CALL MAIN
@@ -136,3 +133,17 @@ if __name__ == '__main__' :
   main()
 
 # --EOF--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
