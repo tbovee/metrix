@@ -94,14 +94,23 @@ III. Analyzes the combined data, restructuring the Earns... table, scoring the
 			score.
 	C. Columns used in analysis:
 		1. Gateways
-			a. FTtrend to select the direction of the trade
-			b. Weeklys to select liquid options suitable for trading
-			c. FTtrend/ESP mismatch
+			a. FTtrend to select the direction of the trade (1 for up, 
+				-1 for down, 0 for neutral)
+			b. Weeklys to select liquid options suitable for trading (1 for available, 
+				blank or 0 for not)
+			c. FTtrend/ESP mismatch (1 for mismatch; blank or zero for matched)
 		2. Proportionals
-			a. IVP
-			b. ESP
-			c. Rank
-			d. FT distance from zero
+			a. IVP (direct)
+			b. ESP (inverse)
+			c. Rank (verse) 
+			d. FT distance from zero (inverse)
+		3. Questions: 
+			a. Should the gateway results (FTrend excepted) be preserved in data, or simply used
+				to screen which symbols make the final cut?. I'm inclined to keep them.
+			B. What level of granularity should be used in analyzing the proporitonals? 
+				i. Five categories (quintile)
+				ii. Ten categories (decile)
+				iii. One hundred categories (percentile)
 	
 		
 IV. Program terminates, and operator uploads it to Google Sheet as input into the trading routine.
