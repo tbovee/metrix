@@ -2,7 +2,8 @@
 
 # Version 0.0
 
-# DTG 20180209.1852 Completed Joindata() in Analuyzebox
+# DTG 20180209.19.18 Began work on Analyzebox.perentile()
+# DTG 20180209.1852 Completed Joindata() in Analyzebox
 # DTG 20180203.1605 Completed field lists except for Analyze object
 # DTG 20180203.1215 
 #	Removed Syms object as not needed.
@@ -95,7 +96,8 @@ class AnalyzeBox()
     pass
     
   def Percentile(colscore, inverse)
-  	pass
+  	# Example: Getting max, min from a column: 
+  	# self.Datatable['fieldname'].max() || .min()
   	
   def Calcscores()
     # Sums (or averages) the colscore columns TBD
