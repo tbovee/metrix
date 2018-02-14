@@ -2,7 +2,8 @@
 
 # Version 0.0
 
-# DTG 20180209.19.18 Began work on Analyzebox.perentile()
+# DTG 20180213.1620 Finished def Gateclosed; sketched def Calcscores
+# DTG 20180209.1918 Began work on Analyzebox.perentile()
 # DTG 20180209.1852 Completed Joindata() in Analyzebox
 # DTG 20180203.1605 Completed field lists except for Analyze object
 # DTG 20180203.1215 
@@ -47,6 +48,8 @@ weeklycoldel = []
 # Analyze object constants
 colscore = []
 filestub = "Earns "
+gateclosed = 1
+gateopen = 0
  
 def pausehere()
   # Code that pauses while Market externality is created.
@@ -94,23 +97,24 @@ class AnalyzeBox()
         
   def Insertcols(): # if needed for new columns; do in join if possible
     pass
+      	
+  def Calcscores(dframe)
+    # Calculates a quintile for each scorable column
+    # Scorable columns: esp, rank, iv, ivp, fishertrans, beta, analysts
+    quantiles = 5
+    return dframe(q=0.5, axis=0)
+    # What sort of return? ]
+    # How do I pass to drame? 
+    # How do I put an item's quantile in a column in the same table?
     
-  def Percentile(colscore, inverse)
-  	# Example: Getting max, min from a column: 
-  	# self.Datatable['fieldname'].max() || .min()
-  	
-  def Calcscores()
-    # Sums (or averages) the colscore columns TBD
-    # For each scorecol:
-    #  percentile(col, inverse) range 0.00 to 1.00
-    #  write percentile to appropriate score column
     pass
     
   def Gateclosed(gate):
+  	# gates: weeklys, FTtrend, FTesp
     if gate == 1:
-      return 1
+      return gateclosed
     else:
-      return 0  
+      return gateopen  
       
   def Options():
      return [weeklys] #column	  
