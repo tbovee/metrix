@@ -2,6 +2,8 @@
 
 # Version 0.0
 
+# DTG 20180215.1845 Splits data saving into proc filetable(); comments out Analysis
+#	for tetng purposes
 # DTG 20180213.1620 Finished def Gateclosed; sketched def Calcscores
 # DTG 20180209.1918 Began work on Analyzebox.perentile()
 # DTG 20180209.1852 Completed Joindata() in Analyzebox
@@ -30,7 +32,8 @@ calendarfile = "c.csv"
 earnscolnames = "Symbol" : "Sym"
 earnscoldel = "Company","Market Cap(M)","Estimate","Reported","ESP","PriceChange"
 
-# Zacks object constants
+# Zacks object 
+constants
 zacksfile = "z.csv"
 zackscolnames = "Ticker" : "Sym", "Next EPS Rerpot Date" : "Date", "# of Analysts in Q0 Consensus" : "Analysts","Estimate Q0" : "EstQ0","Earnings ESP" : "ESP", "Zacks Rank" : "Rank"
 zackscoldel = "Avg Volume","Market Cap","Optionable","Compare"
@@ -47,9 +50,11 @@ weeklycoldel = []
 
 # Analyze object constants
 colscore = []
-filestub = "Earns "
 gateclosed = 1
 gateopen = 0
+
+# Filetable procedure constants
+filestub = "Earns"
  
 def pausehere()
   # Code that pauses while Market externality is created.
@@ -81,23 +86,24 @@ class DataBox(datafile, colname, coldel):
       self.Datatable.drop(columns=[coldel])
       pass  
     	
-
+class CombineBox()
+  def ___init___:
+    self.Joindata()
+    
+  def Joindata():
+    self.Interimtable = df.merge(Calendar.Datatable, Zacks.Datatable, how='inner', on='syms')
+    self.Datatable = df.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='syms')
+        
+  def Insertcols(): # if needed for new columns; do in join if possible
+    pass
+      	
+'''
 class AnalyzeBox()
   # Joins table into a single datastructure, \analyzes
   # the data, and makes a judgment of each symbol: analyze-dopt and pass-dopt for
   #   directional optons, analyze-nopt and pass-nopt, for direction neutral optons, 
   #   and analyze-shr and pass-shr for shares, all of which are long plays.
   
-  def ___init___:
-    self.Joindata()
-    
-  def Joindata():
-    self.Interimtable = df.merge(Calendar.Datatable, Zacks.Datatable, how='inner', on='syms')
-    self.Datatable = df.merge(self.Inerimtable, Weeklys.Datatable, how='outer', on='syms')
-        
-  def Insertcols(): # if needed for new columns; do in join if possible
-    pass
-      	
   def Calcscores(dframe)
     # Calculates a quintile for each scorable column
     # Scorable columns: esp, rank, iv, ivp, fishertrans, beta, analysts
@@ -123,6 +129,10 @@ class AnalyzeBox()
     if self.Gateclosed(gate):
     	dec = "pass_"options() == 1:
     	pass
+'''
+
+def Filetable()
+	pd.to_csv(datapath + "out.csv")
          
 def main():
 
@@ -131,7 +141,8 @@ def main():
   pausehere()
   Market = DataBox(marketfile,[1,"syms"],marketcoldeletes)
   Weeklys = Databox(weeklysfile,[],[])
-  Analyze = AnalyzeBox()
+  Combine = CombineBox()
+# Analyze = AnalyzeBox()
 
 # CALL MAIN
 
