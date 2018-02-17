@@ -1,0 +1,2 @@
+#! /bin/sh
+cp ~/Documents/GitHub/metrix/*.py ~/Documents/testbed

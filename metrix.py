@@ -2,6 +2,7 @@
 
 # Version 0.0
 
+# DTG 20180217.0722 Debugging
 # DTG 20180215.1845 Splits data saving into proc filetable(); comments out Analysis
 #	for tetng purposes
 # DTG 20180213.1620 Finished def Gateclosed; sketched def Calcscores
@@ -29,18 +30,17 @@ datapath = "." + fsep + "data" + fsep
 
 # Calendar object contants
 calendarfile = "c.csv"
-earnscolnames = "Symbol" : "Sym"
+earnscolnames = '"Symbol" : "Sym"'
 earnscoldel = "Company","Market Cap(M)","Estimate","Reported","ESP","PriceChange"
 
-# Zacks object 
-constants
+# Zacks object constants
 zacksfile = "z.csv"
-zackscolnames = "Ticker" : "Sym", "Next EPS Rerpot Date" : "Date", "# of Analysts in Q0 Consensus" : "Analysts","Estimate Q0" : "EstQ0","Earnings ESP" : "ESP", "Zacks Rank" : "Rank"
+zackscolnames = '"Ticker" : "Sym", "Next EPS Rerpot Date" : "Date", "# of Analysts in Q0 Consensus" : "Analysts","Estimate Q0" : "EstQ0","Earnings ESP" : "ESP", "Zacks Rank" : "Rank"'
 zackscoldel = "Avg Volume","Market Cap","Optionable","Compare"
 
 # Market object constants
 marketfile = "m.csv"
-marketcolname = "Market Cap" : "Market Cap", "Impl Vol" : "IV","IV_Percentile" : "IVR","FisherTransform" : "FT"
+marketcolname = '"Market Cap" : "Market Cap", "Impl Vol" : "IV","IV_Percentile" : "IVR","FisherTransform" : "FT"'
 marketcoldel = []
 
 # Weeklys object constants :: Needs column label "Sym", added manually
@@ -56,11 +56,12 @@ gateopen = 0
 # Filetable procedure constants
 filestub = "Earns"
  
-def pausehere()
+def pausehere():
   # Code that pauses while Market externality is created.
+  pass
 
 class DataBox(datafile, colname, coldel):
-  # Holds DataFrame and associated attributes and tools.
+# Holds DataFrame and associated attributes and tools.
    
   def ___init___():
     self.Datafile = datafile
@@ -77,8 +78,8 @@ class DataBox(datafile, colname, coldel):
   	if colname.empty == True:
   	  pass
   	else:
-      self.Datatable.rename(index=str, columns={ colname } )
-    	
+      self.Datatable.rename(index=str, columns={ colname })
+      
   def Delcols():
     if colname.empty == True:
       pass
