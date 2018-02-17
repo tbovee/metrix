@@ -2,7 +2,8 @@
 
 # Version 0.0
 
-# DTG 20180217.1253 Debugging Class defs and instantiations
+# DTG 20180217.1338 Fixing .csv data files
+# DTG 20180217.1253 Debugging objects and instantiations
 # DTG 20180217.0722 Debugging 
 # DTG 20180215.1845 Splits data saving into proc filetable(); comments out Analysis
 #	for tetng purposes
@@ -68,7 +69,7 @@ class DataBox():
     self.Datafile = datafile
     self.Datafile = datapath + self.Datafile
     self.Acquire()
-    self.Delcols()
+    self.Delcols(colname,coldel)
     self.Namecols()
   
   def Acquire(self):
@@ -76,17 +77,17 @@ class DataBox():
   	self.Datatable = pd.read_csv(self.Datafile,header=1)
   	
   def Namecols(self):
-    if colname.empty == True:
+    if colname == {}:
   	  pass
     else:
       self.Datatable.rename(index=str, columns={ colname })
       
-  def Delcols(self):
-    if colname.empty == True:
+  def Delcols(self,colname,coldel):
+    if colname == ():
       pass
     else:
-      self.Datatable.drop(columns=[coldel])
-      pass  
+      #self.Datatable.drop(columns=[coldel]) 
+      self.Datatable.drop(coldel, axis=1)
     	
 class CombineBox():
   def __init__(self):
