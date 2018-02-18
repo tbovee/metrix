@@ -2,7 +2,7 @@
 
 # Version 1.1 
 
-# DTG 20180219.1023 v1.1: Fixed errors that left extraneous characters
+# DTG 20180218.1023 v1.1: Fixed errors that left extraneous characters
 # DTG 20180204.1405 v1.01 Fixed an error that zeroed outfile for each infile
 # DTG 20180204.1315 v1.00 Working standalone version
 #  Next step: Make it work as an importable module
