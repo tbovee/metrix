@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 
-# Version 1.01 
+# Version 1.1 
 
+# DTG 20180219.1023 v1.1: Fixed errors that left extraneous characters
 # DTG 20180204.1405 v1.01 Fixed an error that zeroed outfile for each infile
 # DTG 20180204.1315 v1.00 Working standalone version
 #  Next step: Make it work as an importable module
@@ -16,7 +17,6 @@ DEBUG = 0
 
 indir = "./cal/"
 outfile = "./c.csv"
-splitstr = '"Symbol'
 
 
 def combinefiles(dir,out) :
@@ -27,17 +27,20 @@ def combinefiles(dir,out) :
   for file in files:
     Fin = open(indir + file,"r")
     for s in Fin:
+      s = s.strip() + "\n"
       if f == 0:
         if k == 0:
-          linea = s.split(splitstr)
-          Fout.write(str(f) + ": " + str(k) + ": " + file + " :: " + splitstr + linea[1])
+          Fout.write(s[3:])
+        else:
+          Fout.write(s)
+      else:
+        if k > 0:
+          Fout.write(s)
       k = k + 1
-
-      if k > 0:
-        Fout.write(s)
     Fin.close()
     f = f + 1
     k = 0
+  #Fout.write("\n")
   Fout.close()
   
 def main() :
