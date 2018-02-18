@@ -2,6 +2,11 @@
 
 # Version 0.0
 
+# DTG 20180217.1705 Debugging obj DataBox.delcols
+#   The column names in the drop() command aren't recognized, although they
+#   visually match between the variable and the .csv file. I am commenting 
+#    the function out for now and shall pick it up later. Likewise the namecols()
+#    function.
 # DTG 20180217.1338 Fixing .csv data files
 # DTG 20180217.1253 Debugging objects and instantiations
 # DTG 20180217.0722 Debugging 
@@ -69,33 +74,36 @@ class DataBox():
     self.Datafile = datafile
     self.Datafile = datapath + self.Datafile
     self.Acquire()
-    self.Delcols(colname,coldel)
-    self.Namecols()
+#    self.Delcols(colname,coldel) Removed for later debugging
+#    self.Namecols(colname) Removed for later debugging
   
   def Acquire(self):
   	# Check for the existence of the file, abort if not found
   	self.Datatable = pd.read_csv(self.Datafile,header=1)
-  	
-  def Namecols(self):
+
+  ''' Debug this later: columns keyword a problem
+  def Namecols(self,colname):
     if colname == {}:
   	  pass
     else:
       self.Datatable.rename(index=str, columns={ colname })
-      
+  '''
+     
+  ''' Debug this later 
   def Delcols(self,colname,coldel):
     if colname == ():
       pass
     else:
-      #self.Datatable.drop(columns=[coldel]) 
-      self.Datatable.drop(coldel, axis=1)
+      self.Datatable.drop(coldel, axis='columns')
+  '''
     	
 class CombineBox():
-  def __init__(self):
-    self.Joindata()
+  def __init__(self,c,z):
+    self.Joindata(self,c,z)
     
-  def Joindata(self):
-    self.Interimtable = df.merge(Calendar.Datatable, Zacks.Datatable, how='inner', on='syms')
-    self.Datatable = df.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='syms')
+  def Joindata(c,z):
+    self.Interimtable = pd.merge(c.Datatable, z.Datatable, how='inner', on='syms')
+    self.Datatable = pd.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='syms')
         
   def Insertcols(self): # if needed for new columns; do in join if possible
     pass
@@ -143,8 +151,8 @@ def main():
   Zacks = DataBox(zacksfile,zackscolnames,zackscoldel)
   pausehere()
   Market = DataBox(marketfile,[1,"syms"],marketcoldel)
-  Weeklys = Databox(weeklysfile,[],[])
-  Combine = CombineBox()
+  Weeklys = DataBox(weeklysfile,[],[])
+  Combine = CombineBox(Calendar, Zacks)
 # Analyze = AnalyzeBox()
 
 # CALL MAIN
