@@ -74,36 +74,35 @@ class DataBox():
     self.Datafile = datafile
     self.Datafile = datapath + self.Datafile
     self.Acquire()
-#    self.Delcols(colname,coldel) Removed for later debugging
-#    self.Namecols(colname) Removed for later debugging
+    self.Delcols(colname,coldel)
+    self.Namecols(colname)
   
   def Acquire(self):
-  	# Check for the existence of the file, abort if not found
-  	self.Datatable = pd.read_csv(self.Datafile,header=1)
+    # Check for the existence of the file, abort if not found
+    self.Datatable = pd.read_csv(self.Datafile, header=1)
+    Filetable()
+    sys.exit()
 
-  ''' Debug this later: columns keyword a problem
   def Namecols(self,colname):
     if colname == {}:
   	  pass
     else:
       self.Datatable.rename(index=str, columns={ colname })
-  '''
      
-  ''' Debug this later 
   def Delcols(self,colname,coldel):
     if colname == ():
       pass
     else:
       self.Datatable.drop(coldel, axis='columns')
-  '''
     	
 class CombineBox():
   def __init__(self,c,z):
-    self.Joindata(self,c,z)
+    self.Joindata(c, z)
     
+  @staticmethod
   def Joindata(c,z):
-    self.Interimtable = pd.merge(c.Datatable, z.Datatable, how='inner', on='syms')
-    self.Datatable = pd.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='syms')
+    self.Interimtable = pd.merge(c.Datatable, z.Datatable, how='inner', on='Syms')
+    self.Datatable = pd.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='Syms')
         
   def Insertcols(self): # if needed for new columns; do in join if possible
     pass
