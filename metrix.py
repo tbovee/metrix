@@ -2,6 +2,7 @@
 
 # Version 0.0
 
+# DTG 20180218.1812 Debugging handling of comma-quote delimited source files
 # DTG 20180217.1705 Debugging obj DataBox.delcols
 #   The column names in the drop() command aren't recognized, although they
 #   visually match between the variable and the .csv file. I am commenting 
