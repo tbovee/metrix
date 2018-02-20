@@ -2,6 +2,7 @@
 
 # Version 0.0
 
+# DTG 20180220.1440
 # DTG 20180218.1812 Debugging handling of comma-quote delimited source files
 # DTG 20180217.1705 Debugging obj DataBox.delcols
 #   The column names in the drop() command aren't recognized, although they
@@ -56,10 +57,14 @@ weeklysfile  = "weeklys.csv"
 weeklyscolname = []
 weeklycoldel = []
 
+# Create a single table, constants
+Finaltable = pd.DataFrame()
+
 # Analyze object constants
 colscore = []
 gateclosed = 1
 gateopen = 0
+
 
 # Filetable procedure constants
 filestub = "Earns"
@@ -96,17 +101,20 @@ class DataBox():
     else:
       self.Datatable.drop(coldel, axis='columns')
     	
-class CombineBox():
-  def __init__(self,c,z):
-    self.Joindata(c, z)
-    
-  @staticmethod
-  def Joindata(c,z):
-    self.Interimtable = pd.merge(c.Datatable, z.Datatable, how='inner', on='Syms')
-    self.Datatable = pd.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='Syms')
+# Create a single table
+
+
+def Joindata(c,z):
+  Interimtable = pd.merge(c.Datatable, z.Datatable, how='inner', on='Syms')
+  Finaltable = pd.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='Syms')
         
-  def Insertcols(self): # if needed for new columns; do in join if possible
-    pass
+def Filetable():
+  Finaltable.to_csv(datapath + "out.csv")
+	
+def CombineBox():
+  Joindata(c, z)
+  Filetable()
+
       	
 '''
 class AnalyzeBox()
@@ -142,17 +150,14 @@ class AnalyzeBox()
     	pass
 '''
 
-def Filetable():
-	pd.to_csv(datapath + "out.csv")
-         
 def main():
 
   Calendar = DataBox(calendarfile, calendarcolnames, calendarcoldel)
   Zacks = DataBox(zacksfile,zackscolnames,zackscoldel)
-  pausehere()
+  #pausehere
   Market = DataBox(marketfile,[1,"syms"],marketcoldel)
   Weeklys = DataBox(weeklysfile,[],[])
-  Combine = CombineBox(Calendar, Zacks)
+  CombineBox(Calendar, Zacks)
 # Analyze = AnalyzeBox()
 
 # CALL MAIN
