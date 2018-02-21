@@ -2,7 +2,8 @@
 
 # Version 0.0
 
-# DTG 20180220.1440
+# DTG 10180220.1735 Interprets without error but produces no result.
+# DTG 20180220.1440 Moved Class CombineBox() and affiliated to functions
 # DTG 20180218.1812 Debugging handling of comma-quote delimited source files
 # DTG 20180217.1705 Debugging obj DataBox.delcols
 #   The column names in the drop() command aren't recognized, although they
