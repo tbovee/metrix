@@ -2,7 +2,8 @@
 
 # Version 0.0
 
-# DTG 10180220.1735 Interprets without error but produces no result.
+# DTG 20180303.1203 Continued debugging of the pandas labels drop and rename
+# DTG 20180220.1735 Interprets without error but produces no result.
 # DTG 20180220.1440 Moved Class CombineBox() and affiliated to functions
 # DTG 20180218.1812 Debugging handling of comma-quote delimited source files
 # DTG 20180217.1705 Debugging obj DataBox.delcols
@@ -29,6 +30,8 @@
 # DTG 20180129.1950 template created
 # See Documentation.txt for an explanation of metrix.py
 
+DEBUG = 1
+
 # Import modules
 import sys
 import pandas as pd
@@ -40,17 +43,17 @@ datapath = "." + fsep + "data" + fsep
 
 # Calendar object contants
 calendarfile = "c.csv"
-calendarcolnames = '"Symbol" : "Sym"'
+calendarcolnames = '"Symbol" : "sym"'
 calendarcoldel = "Company","Market Cap(M)","Estimate","Reported","ESP","PriceChange"
 
 # Zacks object constants
 zacksfile = "z.csv"
-zackscolnames = {"Ticker" : "Sym", "Next EPS Rerpot Date" : "Date", "# of Analysts in Q0 Consensus" : "Analysts","Estimate Q0" : "EstQ0","Earnings ESP" : "ESP", "Zacks Rank" : "Rank"}
+zackscolnames = {"Ticker" : "sym", "Next EPS Rerpot Date" : "date", "# of Analysts in Q0 Consensus" : "analysts","Estimate Q0" : "estQ0","Earnings ESP" : "esp", "Zacks Rank" : "rank"}
 zackscoldel = "Avg Volume","Market Cap","Optionable","Compare"
 
 # Market object constants
 marketfile = "m.csv"
-marketcolname = {"Market Cap" : "Market Cap", "Impl Vol" : "IV","IV_Percentile" : "IVR","FisherTransform" : "FT"}
+marketcolname = {"Market Cap" : "cap", "Impl Vol" : "iv","IV_Percentile" : "ivp","FisherTransform" : "ft"}
 marketcoldel = []
 
 # Weeklys object constants :: Needs column label "Sym", added manually
@@ -80,15 +83,18 @@ class DataBox():
   def __init__(self, datafile, colname, coldel):
     self.Datafile = datafile
     self.Datafile = datapath + self.Datafile
-    self.Acquire()
+    self.Datatable = pd.read_csv(self.Datafile, header=1)
     self.Delcols(colname,coldel)
     self.Namecols(colname)
-  
+    print pd.Datatable.head(5)
+    sys.exit()
+  '''
   def Acquire(self):
     # Check for the existence of the file, abort if not found
     self.Datatable = pd.read_csv(self.Datafile, header=1)
     Filetable()
     sys.exit()
+  '''
 
   def Namecols(self,colname):
     if colname == {}:
