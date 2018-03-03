@@ -2,6 +2,7 @@
 
 # Version 0.0
 
+# DTG 20180303.1527 read_csv pandas function not reading c.csv
 # DTG 20180303.1446 Fixed Datafile so filename shows
 # DTG 20180303.1203 Continued debugging of the pandas labels drop and rename
 # DTG 20180220.1735 Interprets without error but produces no result.
@@ -87,9 +88,9 @@ class DataBox():
     # self.Datatable = pd.read_csv(self.Datafile, header=1)
     self.Datafile = datapath + datafile
     print "Datafile = " + self.Datafile
-    sys.exit()
     self.Datatable = pd.read_csv(self.Datafile, header=1)
-    Filetable()
+    sys.exit()
+    self.Datatable.to_csv(datapath + "out.csv")
     self.Delcols(colname,coldel)
     self.Namecols(colname)
     print pd.Datatable.head(5)
@@ -113,10 +114,7 @@ class DataBox():
 def Joindata(c,z):
   Interimtable = pd.merge(c.Datatable, z.Datatable, how='inner', on='Syms')
   Finaltable = pd.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='Syms')
-        
-def Filetable():
-  Finaltable.to_csv(datapath + "out.csv")
-	
+        	
 def CombineBox():
   Joindata(c, z)
   Filetable()
