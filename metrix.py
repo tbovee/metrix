@@ -3,6 +3,9 @@
 # Version 0.0
 
 # DTG 20180303.1527 read_csv pandas function not reading c.csv
+#   The c.csv file is combination of files that puts heads after the
+#    first file to the right of data, creating long lines. This will require
+#    pre-processing in the calfile.py import routine
 # DTG 20180303.1446 Fixed Datafile so filename shows
 # DTG 20180303.1203 Continued debugging of the pandas labels drop and rename
 # DTG 20180220.1735 Interprets without error but produces no result.
