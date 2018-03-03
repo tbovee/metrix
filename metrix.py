@@ -2,6 +2,7 @@
 
 # Version 0.0
 
+# DTG 20180303.1446 Fixed Datafile so filename shows
 # DTG 20180303.1203 Continued debugging of the pandas labels drop and rename
 # DTG 20180220.1735 Interprets without error but produces no result.
 # DTG 20180220.1440 Moved Class CombineBox() and affiliated to functions
@@ -81,21 +82,19 @@ class DataBox():
 # Holds DataFrame and associated attributes and tools.
    
   def __init__(self, datafile, colname, coldel):
-    self.Datafile = datafile
-    self.Datafile = datapath + self.Datafile
+    # self.Datafile = datafile
+    # self.Datafile = datapath + self.Datafile
+    # self.Datatable = pd.read_csv(self.Datafile, header=1)
+    self.Datafile = datapath + datafile
+    print "Datafile = " + self.Datafile
+    sys.exit()
     self.Datatable = pd.read_csv(self.Datafile, header=1)
+    Filetable()
     self.Delcols(colname,coldel)
     self.Namecols(colname)
     print pd.Datatable.head(5)
     sys.exit()
-  '''
-  def Acquire(self):
-    # Check for the existence of the file, abort if not found
-    self.Datatable = pd.read_csv(self.Datafile, header=1)
-    Filetable()
-    sys.exit()
-  '''
-
+ 
   def Namecols(self,colname):
     if colname == {}:
   	  pass
