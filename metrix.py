@@ -165,11 +165,11 @@ class AnalyzeBox()
 
 def main():
 
-  Calendar = DataBox(calendarfile, calendarcolnames, calendarcoldel)
-  Zacks = DataBox(zacksfile,zackscolnames,zackscoldel)
+  Calendar = DataBox(calendarfile, calendarsep, calendarcolnames, calendarcoldel)
+  Zacks = DataBox(zacksfile,zackssep,zackscolnames,zackscoldel)
   #pausehere
-  Market = DataBox(marketfile,[1,"syms"],marketcoldel)
-  Weeklys = DataBox(weeklysfile,[],[])
+  Market = DataBox(marketfile,marketseps,[1,"syms"],marketcoldel)
+  Weeklys = DataBox(weeklysfile,weeklyssep,[],[])
   CombineBox(Calendar, Zacks)
 # Analyze = AnalyzeBox()
 
