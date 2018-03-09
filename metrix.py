@@ -2,6 +2,8 @@
 
 # Version 0.0
 
+# DTG 20180309.1541 added separator for each data object using pandas read_csv in order to
+#  allow for bar delimiters in the earnings calendar imports from Zacks
 # DTG 20180303.1527 read_csv pandas function not reading c.csv
 #   The c.csv file is combination of files that puts heads after the
 #    first file to the right of data, creating long lines. This will require
@@ -48,21 +50,25 @@ datapath = "." + fsep + "data" + fsep
 
 # Calendar object contants
 calendarfile = "c.csv"
+calendarsep = '|'
 calendarcolnames = '"Symbol" : "sym"'
 calendarcoldel = "Company","Market Cap(M)","Estimate","Reported","ESP","PriceChange"
 
 # Zacks object constants
 zacksfile = "z.csv"
+zackssep = ','
 zackscolnames = {"Ticker" : "sym", "Next EPS Rerpot Date" : "date", "# of Analysts in Q0 Consensus" : "analysts","Estimate Q0" : "estQ0","Earnings ESP" : "esp", "Zacks Rank" : "rank"}
 zackscoldel = "Avg Volume","Market Cap","Optionable","Compare"
 
 # Market object constants
 marketfile = "m.csv"
+marketsep = ','
 marketcolname = {"Market Cap" : "cap", "Impl Vol" : "iv","IV_Percentile" : "ivp","FisherTransform" : "ft"}
 marketcoldel = []
 
 # Weeklys object constants :: Needs column label "Sym", added manually
 weeklysfile  = "weeklys.csv"
+weeklyssep = ','
 weeklyscolname = []
 weeklycoldel = []
 
@@ -85,13 +91,13 @@ def pausehere():
 class DataBox():
 # Holds DataFrame and associated attributes and tools.
    
-  def __init__(self, datafile, colname, coldel):
+  def __init__(self, datafile, datasep, colname, coldel):
     # self.Datafile = datafile
     # self.Datafile = datapath + self.Datafile
     # self.Datatable = pd.read_csv(self.Datafile, header=1)
     self.Datafile = datapath + datafile
     print "Datafile = " + self.Datafile
-    self.Datatable = pd.read_csv(self.Datafile, header=1)
+    self.Datatable = pd.read_csv(self.Datafile, sep=datasep, header=1)
     sys.exit()
     self.Datatable.to_csv(datapath + "out.csv")
     self.Delcols(colname,coldel)
