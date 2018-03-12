@@ -96,14 +96,9 @@ class DataBox():
     # self.Datafile = datapath + self.Datafile
     # self.Datatable = pd.read_csv(self.Datafile, header=1)
     self.Datafile = datapath + datafile
-    print "Datafile = " + self.Datafile
     self.Datatable = pd.read_csv(self.Datafile, sep=datasep, header=1)
-    sys.exit()
-    self.Datatable.to_csv(datapath + "out.csv")
     self.Delcols(colname,coldel)
     self.Namecols(colname)
-    print pd.Datatable.head(5)
-    sys.exit()
  
   def Namecols(self,colname):
     if colname == {}:
@@ -119,18 +114,19 @@ class DataBox():
     	
 # Create a single table
 
-
 def Joindata(c,z):
   Interimtable = pd.merge(c.Datatable, z.Datatable, how='inner', on='Syms')
   Finaltable = pd.merge(self.Interimtable, Weeklys.Datatable, how='outer', on='Syms')
+  
+def Filetable() :
+  pd.Datatable.to_csv(datapath + "out.csv")
         	
 def CombineBox():
   Joindata(c, z)
   Filetable()
 
-      	
 '''
-class AnalyzeBox()
+class AnalyzeBox() :
   # Joins table into a single datastructure, \analyzes
   # the data, and makes a judgment of each symbol: analyze-dopt and pass-dopt for
   #   directional optons, analyze-nopt and pass-nopt, for direction neutral optons, 
@@ -144,8 +140,6 @@ class AnalyzeBox()
     # What sort of return? ]
     # How do I pass to drame? 
     # How do I put an item's quantile in a column in the same table?
-    
-    pass
     
   def Gateclosed(gate):
   	# gates: weeklys, FTtrend, FTesp
@@ -171,7 +165,7 @@ def main():
   Market = DataBox(marketfile,marketseps,[1,"syms"],marketcoldel)
   Weeklys = DataBox(weeklysfile,weeklyssep,[],[])
   CombineBox(Calendar, Zacks)
-# Analyze = AnalyzeBox()
+#  Analyze = AnalyzeBox()
 
 # CALL MAIN
 
