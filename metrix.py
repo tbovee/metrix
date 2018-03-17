@@ -2,6 +2,8 @@
 
 # Version 0.0
 
+# DTG 20180317.1540 added procfiles.py as an import, reworked to bring procfiles
+#   methods into main()
 # DTG 20180309.1541 added separator for each data object using pandas read_csv in order to
 #  allow for bar delimiters in the earnings calendar imports from Zacks
 # DTG 20180303.1527 read_csv pandas function not reading c.csv
@@ -43,6 +45,7 @@ DEBUG = 1
 import sys
 import pandas as pd
 import numpy as np
+import procfiles as pf
 
 # File constants
 fsep = "/"
@@ -50,7 +53,8 @@ datapath = "." + fsep + "data" + fsep
 
 # Calendar object contants
 calendarfile = "c.csv"
-calendarsep = '|'
+calendarsep = ','
+calendardir = "./cal/" 
 calendarcolnames = '"Symbol" : "sym"'
 calendarcoldel = "Company","Market Cap(M)","Estimate","Reported","ESP","PriceChange"
 
@@ -158,7 +162,8 @@ class AnalyzeBox() :
 '''
 
 def main():
-
+  pf.combinefiles(calendardir,calendarfile,pf.ALL)
+  pf.procfile(outdir,zacksfile,0)
   Calendar = DataBox(calendarfile, calendarsep, calendarcolnames, calendarcoldel)
   Zacks = DataBox(zacksfile,zackssep,zackscolnames,zackscoldel)
   #pausehere
