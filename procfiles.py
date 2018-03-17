@@ -2,7 +2,7 @@
 
 # Version 1.1 
 
-# DTG 20180317.1541 def procfile() to process a single file into a list, reworked combinefiles() 
+# DTG 20180317.1542 def procfile() to process a single file into a list, reworked combinefiles() 
 #   to confirm. 
 # DTG 20180308.1522 Added an option to def combinefiles that directs quote removal;
 #  Added supporting globals ALL, STRINGS, None and var quotes
