@@ -29,6 +29,8 @@ quotes = NONE
 def quotestobars(s) : 
   s = s.replace('","','|')
   s = s.replace('"','')
+  s = s.replace(',','')
+  s = s.replace('|',',')
   return s
 
 def combinefiles(dir,out,quotes) :
