@@ -35,12 +35,12 @@ def quotestocommas(s) :
   s = s.replace('|',',')
   return s
 
-def trunc(f)
+def trunc(f):
   f.open(outfile,"w")
   f.truncate()
   f.close()
 
-def procfile(dir,file,quotes,filnum)
+def procfile(dir,file,quotes,filnum):
   k = 0
   output = []  
   Fin = open(dir + file,"r")
@@ -67,20 +67,20 @@ def procfile(dir,file,quotes,filnum)
 def combinefiles(dir,out,quotes) :
   files = os.listdir(dir)
   f = 0
-  Fout = open(outfile,"w")
+  Fout = open(out,"w")
   for file in files:
     Fout.write(procfile(out,ALL))
     f = f + 1
   Fout.close()
   
 def main() :
-  combinefiles(indir,outfile,ALL)
+  # combinefiles(indir,outfile,ALL,)
 
 
 # CALL MAIN
 
-if __name__ == '__main__' :
-  main()
+  if __name__ == '__main__' :
+    main()
 
 # --EOF--
 
